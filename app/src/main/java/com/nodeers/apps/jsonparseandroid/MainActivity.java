@@ -31,10 +31,37 @@ public class MainActivity extends AppCompatActivity {
 
         OurRetrofitClient ourRetrofitClient = retrofit.create(OurRetrofitClient.class);
 
-     Call<OurMainDataClass> call=   ourRetrofitClient.getData("LB2NyDXhCctejZCWEpe4vSpNwe2oh7HFwynJ7naEiKXu7XcxChuKoAkLoksj");
+     Call<SpecipicObjectData> call=   ourRetrofitClient.getData(2,"LB2NyDXhCctejZCWEpe4vSpNwe2oh7HFwynJ7naEiKXu7XcxChuKoAkLoksj");
 
 
-     call.enqueue(new Callback<OurMainDataClass>() {
+     /////object data
+     call.enqueue(new Callback<SpecipicObjectData>() {
+         @Override
+         public void onResponse(Call<SpecipicObjectData> call, Response<SpecipicObjectData> response) {
+
+             if(response.isSuccessful()){
+
+               ObjectDataClass objectDataClass=  response.body().getData();
+
+               Log.d("name",objectDataClass.getName());
+               Log.d("id", String.valueOf(objectDataClass.getId()));
+               Log.d("resource",objectDataClass.getResource());
+               Log.d("updated_at",objectDataClass.getUpdated_at());
+
+             }else {
+                 Log.d("response","fail");
+             }
+         }
+
+         @Override
+         public void onFailure(Call<SpecipicObjectData> call, Throwable t) {
+
+         }
+     });
+
+     ///list of Data
+
+    /* call.enqueue(new Callback<OurMainDataClass>() {
          @Override
          public void onResponse(Call<OurMainDataClass> call, Response<OurMainDataClass> response) {
 
@@ -58,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
              Log.d("response","fail");
          }
-     });
+     });*/
 
     }
 
